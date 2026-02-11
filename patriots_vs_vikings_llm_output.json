@@ -1,0 +1,15 @@
+{
+  "formation": "Gun Doubles (2x2), Y Flex Right, RB Weak Left",
+  "personnel": "11",
+  "routes": {
+    "L1": "X - 10-yd Hook (settle in zone window)",
+    "L2": "Slot (F) - Deep Over (Cross) at 18\u201322 yds to opposite hash",
+    "L3": "N/A",
+    "L4": "RB (weak) - Check/Release Swing to left",
+    "R4": "N/A",
+    "R3": "N/A",
+    "R2": "Y (TE) - 12-yd Dig (sit vs wall, run-through if open)",
+    "R1": "Z - Go/Fade (clear the deep half)"
+  },
+  "rationale": "Dagger/Slot Cross vs two-high: the outside go pins the deep half while the slot deep over splits the safeties and the TE dig creates a high\u2013low on the MIKE; the hook and swing control the flats to keep the corners honest. It\u2019s 11 personnel and spread, matching Patriots personnel without triggering a heavier defensive adjustment."
+}

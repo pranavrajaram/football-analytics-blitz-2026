@@ -1,0 +1,8 @@
+You are an NFL offensive analyst. Generate a pass play designed to defeat two-high safety coverage.
+Constraints:
+- Do not use heavy personnel formations that would cause the defense to audible out of two-high.
+- The play must be realistic for the Patriots’ personnel.
+- Routes must be coherent with standard passing concepts.
+- The play must be executable on 1st-and-10 from the offense’s own 35.
+Return valid JSON following the schema provided. Output ONLY these fields: formation, personnel, routes, rationale.
+The routes field MUST be an object with keys L1, L2, L3, L4, R4, R3, R2, R1 (all strings).

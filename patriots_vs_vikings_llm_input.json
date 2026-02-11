@@ -1,0 +1,35 @@
+{
+  "offense_team": "New England Patriots",
+  "defense_team": "Minnesota Vikings",
+  "down": 1,
+  "distance": 10,
+  "field_position": "Own 35",
+  "offense_personnel": "11",
+  "defense_personnel": "DL3-LB4-DB4-S2",
+  "coverage_family": "Two-High",
+  "constraints": [
+    "avoid heavy run tells",
+    "keep 2-high defense on the field",
+    "use realistic Patriots personnel"
+  ],
+  "top_routes_vs_two_high": [
+    {
+      "route": "Cross",
+      "n": 25,
+      "avg_yards": 13.52,
+      "avg_epa": 0.994
+    },
+    {
+      "route": "Hook",
+      "n": 41,
+      "avg_yards": 7.37,
+      "avg_epa": 0.515
+    },
+    {
+      "route": "BACK",
+      "n": 33,
+      "avg_yards": 5.12,
+      "avg_epa": -0.058
+    }
+  ]
+}
