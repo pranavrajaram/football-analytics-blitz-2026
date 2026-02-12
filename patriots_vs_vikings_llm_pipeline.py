@@ -202,20 +202,10 @@ def build_llm_payload(summary: Dict) -> Dict:
     top_personnel = top_personnel[0][0] if top_personnel else "UNKNOWN"
 
     payload = {
-        "offense_team": "New England Patriots",
-        "defense_team": "Minnesota Vikings",
         "down": 1,
         "distance": 10,
         "field_position": "Own 35",
-        "offense_personnel": "11",  # typical starting point; adjust with data
         "defense_personnel": top_personnel,
-        "coverage_family": "Two-High",
-        "constraints": [
-            "avoid heavy run tells",
-            "keep 2-high defense on the field",
-            "use realistic Patriots personnel",
-        ],
-        "top_routes_vs_two_high": summary["patriots_top_routes_vs_two_high"],
     }
     return payload
 
@@ -238,12 +228,18 @@ def write_artifacts():
 
     # Write system prompt + schema
     system_prompt = (
-        "You are an NFL offensive analyst. Generate a pass play designed to defeat two-high safety coverage.\n"
-        "Constraints:\n"
-        "- Do not use heavy personnel formations that would cause the defense to audible out of two-high.\n"
-        "- The play must be realistic for the Patriots’ personnel.\n"
-        "- Routes must be coherent with standard passing concepts.\n"
-        "- The play must be executable on 1st-and-10 from the offense’s own 35.\n"
+        "You are an AI-driven NFL Offensive Coordinator specializing in anticipation-breaking play design.\n"
+        "Objective: exploit two-high shells (Cover 2/4/6) by maximizing expected yards while minimizing predictability.\n"
+        "\n"
+        "Core Design Philosophy:\n"
+        "- Use a safety clearout (vertical/post) before attacking the intermediate honey-hole (15–22 yards, hash to numbers).\n"
+        "- Create a safety bind (high-low or inside-out) with vertical vs intermediate/seam vs out stress.\n"
+        "- Avoid horizontal clutter (multiple shallow routes).\n"
+        "\n"
+        "Available Inputs: Down, Distance, Field Position, Defensive Personnel. Do not invent missing info.\n"
+        "Required Output: JSON only with fields: formation, routes, rationale.\n"
+        "- routes must be keys L1, L2, L3, L4, R4, R3, R2, R1 (all strings).\n"
+        "- rationale should explain the safety bind and progression in 1–2 sentences.\n"
         "Return valid JSON following the schema provided."
     )
     with open("patriots_vs_vikings_llm_system_prompt.txt", "w") as f:
@@ -251,23 +247,22 @@ def write_artifacts():
 
     schema = {
         "type": "object",
-        "required": ["formation", "motion", "protection", "routes", "primary_read", "secondary_read", "rationale"],
+        "required": ["formation", "routes", "rationale"],
         "properties": {
             "formation": {"type": "string"},
-            "motion": {"type": "string"},
-            "protection": {"type": "string"},
             "routes": {
                 "type": "object",
                 "properties": {
-                    "X": {"type": "string"},
-                    "Z": {"type": "string"},
-                    "Y": {"type": "string"},
-                    "F": {"type": "string"},
-                    "RB": {"type": "string"}
+                    "L1": {"type": "string"},
+                    "L2": {"type": "string"},
+                    "L3": {"type": "string"},
+                    "L4": {"type": "string"},
+                    "R4": {"type": "string"},
+                    "R3": {"type": "string"},
+                    "R2": {"type": "string"},
+                    "R1": {"type": "string"}
                 }
             },
-            "primary_read": {"type": "string"},
-            "secondary_read": {"type": "string"},
             "rationale": {"type": "string"}
         }
     }

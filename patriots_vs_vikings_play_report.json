@@ -1,28 +1,39 @@
 {
   "play": {
-    "formation": "Gun Doubles (2x2), Y Flex Right, RB Weak Left",
-    "personnel": "11",
+    "formation": "11 Personnel, Gun Trips Right Y-Off (RB Left), Play-Action Wide Zone Left",
     "routes": {
-      "L1": "X - 10-yd Hook (settle in zone window)",
-      "L2": "Slot (F) - Deep Over (Cross) at 18\u201322 yds to opposite hash",
-      "L3": "N/A",
-      "L4": "RB (weak) - Check/Release Swing to left",
-      "R4": "N/A",
-      "R3": "N/A",
-      "R2": "Y (TE) - 12-yd Dig (sit vs wall, run-through if open)",
-      "R1": "Z - Go/Fade (clear the deep half)"
+      "L1": "X iso: Deep Post (20+; bend across boundary safety)",
+      "L2": "N/A (no eligible)",
+      "L3": "N/A (no eligible)",
+      "L4": "RB: Play-action fake, then check-release Swing left",
+      "R4": "N/A (no eligible)",
+      "R3": "Y-off: Seam/Bender 20+ (read field safety; bend away from leverage)",
+      "R2": "Slot: Switch-Release Speed Corner 18\u201322 to numbers (honey-hole)",
+      "R1": "Z: Switch-Release Go (inside-over to cap CB/S)"
     },
-    "rationale": "Dagger/Slot Cross vs two-high: the outside go pins the deep half while the slot deep over splits the safeties and the TE dig creates a high\u2013low on the MIKE; the hook and swing control the flats to keep the corners honest. It\u2019s 11 personnel and spread, matching Patriots personnel without triggering a heavier defensive adjustment."
+    "rationale": "R3 seam (high) with R2 speed-corner (intermediate) puts the field safety in a high-low bind while L1\u2019s post freezes the boundary safety. Progression: Alert L1 Post vs 1-high -> Primary R2 Corner -> Secondary R3 Seam if S drives -> Checkdown L4 Swing."
   },
   "expected_yards": {
     "expected_yards": 10.13,
     "sample_n": 23,
     "level": "context"
   },
-  "predictability_penalty": {
-    "penalty": 1.0,
-    "route": "X - 10-yd Hook (settle in zone window)",
-    "support": 1540
+  "predictability_model": {
+    "method": "lstm_precomputed",
+    "formation_llm": "11 Personnel, Gun Trips Right Y-Off (RB Left), Play-Action Wide Zone Left",
+    "formation_matched": "Trips Left",
+    "formation_match_method": "token_overlap",
+    "context_key": {
+      "off_team": "NE",
+      "down": 1,
+      "togo_bucket": "long",
+      "field_zone": "own_territory"
+    },
+    "p_score": 0.063,
+    "relative_predictability": -0.081,
+    "support": 14,
+    "match_level": "context+formation"
   },
-  "final_score": 9.13
+  "predictability_penalty": 0.937,
+  "final_score": 9.193
 }
