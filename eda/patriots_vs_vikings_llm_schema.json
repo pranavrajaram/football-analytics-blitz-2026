@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "required": [
+    "formation",
+    "routes",
+    "rationale"
+  ],
+  "properties": {
+    "formation": {
+      "type": "string"
+    },
+    "routes": {
+      "type": "object",
+      "properties": {
+        "L1": {
+          "type": "string"
+        },
+        "L2": {
+          "type": "string"
+        },
+        "L3": {
+          "type": "string"
+        },
+        "L4": {
+          "type": "string"
+        },
+        "R4": {
+          "type": "string"
+        },
+        "R3": {
+          "type": "string"
+        },
+        "R2": {
+          "type": "string"
+        },
+        "R1": {
+          "type": "string"
+        }
+      }
+    },
+    "rationale": {
+      "type": "string"
+    }
+  }
+}

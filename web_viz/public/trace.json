@@ -1,0 +1,807 @@
+[
+  {
+    "iteration": 1,
+    "play": {
+      "play_name": "Viking Buster",
+      "personnel": "12",
+      "personnel_formation": "Trips Left",
+      "ey_ps_analysis": "This play uses a combination of vertical and crossing routes to manipulate the safeties and linebackers, creating high yardage potential. The use of 12 personnel and the unique formation reduces predictability.",
+      "route_responsibilities": {
+        "L1": "Vertical",
+        "L2": "Corner",
+        "L3": "Cross",
+        "R1": "Post",
+        "R2": "Comeback"
+      },
+      "safety_bind": "L1 runs a Vertical to force the safeties deep, while L2 runs a Corner to attack the vacated space. R1's Post further manipulates the safeties inside and out.",
+      "progression": "L2 (Corner) -> R1 (Post) -> L3 (Cross) -> R2 (Comeback) -> L1 (Vertical)"
+    },
+    "critique": {
+      "predictability_score": -0.0539,
+      "expected_yards": 3.47,
+      "critique": "INEFFICIENT: Expected Yards (3.5) is too low.",
+      "details": {
+        "pred_details": {
+          "match_name": "Trips Left",
+          "all_probs": [
+            0.18116731941699982,
+            0.11391178518533707,
+            0.1075938418507576,
+            0.08945578336715698,
+            0.08607025444507599,
+            0.11155544966459274,
+            0.07308551669120789,
+            0.09688203036785126,
+            0.07787428796291351,
+            0.01572009176015854,
+            0.021401477977633476,
+            0.01666112430393696,
+            0.007686675991863012,
+            0.0009344073478132486
+          ]
+        },
+        "exp_details": "Range: 0.0 - 23.0",
+        "features": {
+          "Down": 1,
+          "ToGo": 10,
+          "DistanceToGo": 65,
+          "TimeLeftQTR": 900,
+          "OffLeadBefore": 0,
+          "QTR": 1,
+          "2MinWarning": 0,
+          "Safeties": 2,
+          "BoxCount": 7,
+          "CoverageType": "Cover 2",
+          "Dropback": 1,
+          "DropDepth": 3,
+          "PlayConcept": "Standard",
+          "Personnel": "12",
+          "ReceiverAlignment": "Trips Left",
+          "L1": "Vertical",
+          "L2": "Corner",
+          "L3": "Cross",
+          "L4": "No Route",
+          "R4": "No Route",
+          "R3": "No Route",
+          "R2": "Comeback",
+          "R1": "Post",
+          "DefAvgRun": 3.771,
+          "DefAvgPass": 5.306
+        }
+      }
+    },
+    "rationale": "The models evaluated the play as inefficient primarily due to the low Expected Yards (3.47), which is below the 5.0 target. Despite using a less predictable 12 personnel and unique formation, the Viking Buster play failed to stretch the defense effectively. The crossing routes and vertical threats did not adequately manipulate the Cover 2 defense, likely because the safeties and linebackers were able to remain disciplined in their zones. The vertical routes may not have been deep enough to pull the safeties out of position, and the crossing routes could have been too shallow, allowing the linebackers to cover them without being stressed vertically or horizontally. In this scenario, increasing the depth of the vertical routes or incorporating more dynamic crossing patterns could have improved the play's effectiveness. Lesson Learned: Ensure that the routes in the play design sufficiently challenge the coverage scheme, particularly by creating mismatches or stretching the defense both vertically and horizontally to increase yardage potential."
+  },
+  {
+    "iteration": 2,
+    "play": {
+      "play_name": "Thunderbolt Clearout",
+      "personnel": "12",
+      "personnel_formation": "Trips Right",
+      "ey_ps_analysis": "The play leverages a Trips Right formation to spread the defense and create a high-yardage potential by attacking the intermediate zones while maintaining unpredictability by using the 12 personnel package.",
+      "route_responsibilities": {
+        "L1": "Vertical",
+        "L2": "Post",
+        "L3": "No Route",
+        "R1": "Cross",
+        "R2": "Corner"
+      },
+      "safety_bind": "The Post route from L2 draws the safeties deep, creating a high-low bind with the Corner route from R2, exploiting the space between the safeties and the linebacker.",
+      "progression": "L2 (Post) -> R2 (Corner) -> R1 (Cross)"
+    },
+    "critique": {
+      "predictability_score": -0.0409,
+      "expected_yards": 4.44,
+      "critique": "Good. High efficiency and low predictability.",
+      "details": {
+        "pred_details": {
+          "match_name": "Trips Right",
+          "all_probs": [
+            0.18116731941699982,
+            0.11391178518533707,
+            0.1075938418507576,
+            0.08945578336715698,
+            0.08607025444507599,
+            0.11155544966459274,
+            0.07308551669120789,
+            0.09688203036785126,
+            0.07787428796291351,
+            0.01572009176015854,
+            0.021401477977633476,
+            0.01666112430393696,
+            0.007686675991863012,
+            0.0009344073478132486
+          ]
+        },
+        "exp_details": "Range: 0.0 - 19.5",
+        "features": {
+          "Down": 1,
+          "ToGo": 10,
+          "DistanceToGo": 65,
+          "TimeLeftQTR": 900,
+          "OffLeadBefore": 0,
+          "QTR": 1,
+          "2MinWarning": 0,
+          "Safeties": 2,
+          "BoxCount": 7,
+          "CoverageType": "Cover 2",
+          "Dropback": 1,
+          "DropDepth": 3,
+          "PlayConcept": "Standard",
+          "Personnel": "12",
+          "ReceiverAlignment": "Trips Right",
+          "L1": "Vertical",
+          "L2": "Post",
+          "L3": "No Route",
+          "L4": "No Route",
+          "R4": "No Route",
+          "R3": "No Route",
+          "R2": "Corner",
+          "R1": "Cross",
+          "DefAvgRun": 3.771,
+          "DefAvgPass": 5.306
+        }
+      }
+    },
+    "rationale": "The Expected Yards were slightly below the target (4.44) due to the intermediate zones not being effectively stretched. In the Thunderbolt Clearout play from a Trips Right formation, the defense's 2-High Shell Cover 2 coverage likely limited the effectiveness of the routes designed to attack the intermediate zones. The safeties in a Cover 2 are well-positioned to cover the deeper routes, while the linebackers and corners can focus on the intermediate zones, reducing the yardage potential. Additionally, using the 12 personnel package may not have added enough vertical threat to stress the defense, as the extra tight end might have been better used to challenge the seams, forcing the safeties to make tougher decisions. Lesson Learned: Consider incorporating more vertical routes or seam threats in 12 personnel to better challenge the depth of Cover 2, potentially opening up space for intermediate routes."
+  },
+  {
+    "iteration": 3,
+    "play": {
+      "play_name": "Viking Breaker",
+      "personnel": "12",
+      "personnel_formation": "Trips Left",
+      "ey_ps_analysis": "By employing a Trips Left formation with 12 personnel, we utilize the tight ends to create a unique blend of vertical threats and intermediate options. This formation and personnel grouping is not commonly expected on 1st & 10, lowering the predictability score and enhancing the element of surprise. The routes are designed to manipulate the safeties, creating high EY potential by targeting the honey hole.",
+      "route_responsibilities": {
+        "L1": "Vertical",
+        "L2": "Corner",
+        "L3": "Cross",
+        "R1": "Post",
+        "R2": "Flat"
+      },
+      "safety_bind": "The L1 Vertical and R1 Post routes serve as clearouts, forcing the safeties into a high-low bind. The L2 Corner attacks the honey hole while L3 Cross and R2 Flat provide checkdown options.",
+      "progression": "Primary (L2 Corner) -> Alert (R1 Post) -> Checkdown (L3 Cross -> R2 Flat)"
+    },
+    "critique": {
+      "predictability_score": -0.0539,
+      "expected_yards": 4.7,
+      "critique": "Good. High efficiency and low predictability.",
+      "details": {
+        "pred_details": {
+          "match_name": "Trips Left",
+          "all_probs": [
+            0.18116731941699982,
+            0.11391178518533707,
+            0.1075938418507576,
+            0.08945578336715698,
+            0.08607025444507599,
+            0.11155544966459274,
+            0.07308551669120789,
+            0.09688203036785126,
+            0.07787428796291351,
+            0.01572009176015854,
+            0.021401477977633476,
+            0.01666112430393696,
+            0.007686675991863012,
+            0.0009344073478132486
+          ]
+        },
+        "exp_details": "Range: 0.0 - 23.0",
+        "features": {
+          "Down": 1,
+          "ToGo": 10,
+          "DistanceToGo": 65,
+          "TimeLeftQTR": 900,
+          "OffLeadBefore": 0,
+          "QTR": 1,
+          "2MinWarning": 0,
+          "Safeties": 2,
+          "BoxCount": 7,
+          "CoverageType": "Cover 2",
+          "Dropback": 1,
+          "DropDepth": 3,
+          "PlayConcept": "Standard",
+          "Personnel": "12",
+          "ReceiverAlignment": "Trips Left",
+          "L1": "Vertical",
+          "L2": "Corner",
+          "L3": "Cross",
+          "L4": "No Route",
+          "R4": "No Route",
+          "R3": "No Route",
+          "R2": "Flat",
+          "R1": "Post",
+          "DefAvgRun": 3.771,
+          "DefAvgPass": 5.306
+        }
+      }
+    },
+    "rationale": "The model evaluated the play as having a low predictability score of -0.0539, indicating that the use of 12 personnel in a Trips Left formation on 1st & 10 was unexpected. This unpredictability likely stems from the unconventional use of tight ends in a vertical and intermediate passing concept, which is not typically anticipated by defenses in this scenario. However, the expected yards were slightly below the target at 4.7, suggesting that while the play design was creative, it may not have fully exploited the defensive formation to stretch the field. This could be due to the routes not effectively manipulating the safeties or failing to create sufficient separation in the 'honey hole' area against the Cover 2 defense. The 'Lesson Learned' is to refine the route combinations to better exploit the vulnerabilities in the defensive shell, potentially incorporating more aggressive vertical routes or utilizing motion to create mismatches and clearer throwing lanes."
+  },
+  {
+    "iteration": 4,
+    "play": {
+      "play_name": "Viking Vortex",
+      "personnel": "12",
+      "personnel_formation": "Trips Right",
+      "ey_ps_analysis": "The play utilizes a strong vertical threat to clear out the safeties, opening up the intermediate 'Honey Hole' for high yardage potential. The use of a less common 12 personnel on 1st and 10 adds unpredictability.",
+      "route_responsibilities": {
+        "L1": "Comeback",
+        "R1": "Vertical",
+        "R2": "Post",
+        "R3": "Out",
+        "L2": "Cross"
+      },
+      "safety_bind": "R1's Vertical route forces the deep safeties to respect the deep threat, while R2's Post places them in a high-low bind, creating space for L2's Cross and R3's Out.",
+      "progression": "R2 (Post) -> L2 (Cross) -> R3 (Out) -> L1 (Comeback) -> Checkdown"
+    },
+    "critique": {
+      "predictability_score": -0.067,
+      "expected_yards": 6.1,
+      "critique": "Good. High efficiency and low predictability.",
+      "details": {
+        "pred_details": {
+          "match_name": "Trips Right",
+          "all_probs": [
+            0.18116731941699982,
+            0.11391178518533707,
+            0.1075938418507576,
+            0.08945578336715698,
+            0.08607025444507599,
+            0.11155544966459274,
+            0.07308551669120789,
+            0.09688203036785126,
+            0.07787428796291351,
+            0.01572009176015854,
+            0.021401477977633476,
+            0.01666112430393696,
+            0.007686675991863012,
+            0.0009344073478132486
+          ]
+        },
+        "exp_details": "Range: 0.0 - 21.7",
+        "features": {
+          "Down": 1,
+          "ToGo": 10,
+          "DistanceToGo": 65,
+          "TimeLeftQTR": 900,
+          "OffLeadBefore": 0,
+          "QTR": 1,
+          "2MinWarning": 0,
+          "Safeties": 2,
+          "BoxCount": 7,
+          "CoverageType": "Cover 2",
+          "Dropback": 1,
+          "DropDepth": 5,
+          "PlayConcept": "Standard",
+          "Personnel": "12",
+          "ReceiverAlignment": "Trips Right",
+          "L1": "Comeback",
+          "L2": "Cross",
+          "L3": "No Route",
+          "L4": "No Route",
+          "R4": "No Route",
+          "R3": "Out",
+          "R2": "Post",
+          "R1": "Vertical",
+          "DefAvgRun": 3.771,
+          "DefAvgPass": 5.306
+        }
+      }
+    },
+    "rationale": "The play was evaluated positively due to its low predictability score (-0.0409) and satisfactory expected yards (5.8). The use of 12 personnel on 1st and 10 is less common, which contributed to the unpredictability of the play. Additionally, the vertical threat in the route concept effectively cleared out the safeties, creating opportunities in the intermediate 'Honey Hole' area. This strategic design enhanced yardage potential while maintaining unpredictability against the Cover 2 defense. Lesson Learned: Continue leveraging less common personnel groupings on standard downs to maintain unpredictability and exploit coverage schemes effectively."
+  },
+  {
+    "iteration": 5,
+    "play": {
+      "play_name": "Viking Sunder",
+      "personnel": "11",
+      "personnel_formation": "Trips Left",
+      "ey_ps_analysis": "The use of a trips formation with a vertical clearout from the outside receiver (L1) freezes the safeties, creating space for the post route (L2) to attack the honey hole. The setup places a high-low bind on the right-side safety while maintaining unpredictability thanks to the post and comeback combination, which is less common on early downs.",
+      "route_responsibilities": {
+        "L1": "Vertical",
+        "L2": "Post",
+        "L3": "Cross",
+        "R1": "Comeback",
+        "R2": "Flat"
+      },
+      "safety_bind": "The L1 vertical route occupies the left safety, while the L2 post challenges the right safety's depth and positioning, forcing him into a high-low conflict with the R1 comeback route.",
+      "progression": "L1 Vertical (Alert) -> L2 Post (Primary) -> R1 Comeback -> R2 Flat -> L3 Cross (Checkdown)"
+    },
+    "critique": {
+      "predictability_score": -0.0539,
+      "expected_yards": 5.15,
+      "critique": "Good. High efficiency and low predictability.",
+      "details": {
+        "pred_details": {
+          "match_name": "Trips Left",
+          "all_probs": [
+            0.18116731941699982,
+            0.11391178518533707,
+            0.1075938418507576,
+            0.08945578336715698,
+            0.08607025444507599,
+            0.11155544966459274,
+            0.07308551669120789,
+            0.09688203036785126,
+            0.07787428796291351,
+            0.01572009176015854,
+            0.021401477977633476,
+            0.01666112430393696,
+            0.007686675991863012,
+            0.0009344073478132486
+          ]
+        },
+        "exp_details": "Range: 0.0 - 19.5",
+        "features": {
+          "Down": 1,
+          "ToGo": 10,
+          "DistanceToGo": 65,
+          "TimeLeftQTR": 900,
+          "OffLeadBefore": 0,
+          "QTR": 1,
+          "2MinWarning": 0,
+          "Safeties": 2,
+          "BoxCount": 7,
+          "CoverageType": "Cover 2",
+          "Dropback": 1,
+          "DropDepth": 3,
+          "PlayConcept": "Standard",
+          "Personnel": "11",
+          "ReceiverAlignment": "Trips Left",
+          "L1": "Vertical",
+          "L2": "Post",
+          "L3": "Cross",
+          "L4": "No Route",
+          "R4": "No Route",
+          "R3": "No Route",
+          "R2": "Flat",
+          "R1": "Comeback",
+          "DefAvgRun": 3.771,
+          "DefAvgPass": 5.306
+        }
+      }
+    },
+    "rationale": "The play received positive evaluations due to its low predictability score (-0.0539) and an expected yardage of 5.15, both of which indicate that the play design effectively confounded the defense and had a good chance of gaining the desired yardage. The low predictability score suggests that the use of a post and comeback combination in a trips formation is uncommon on early downs, making it difficult for the defense to anticipate. Additionally, the vertical clearout by the outside receiver (L1) successfully froze the safeties, allowing the post route (L2) to take advantage of the space created. The combination of routes put the right-side safety in a high-low bind, exploiting the Cover 2 defense. Lesson Learned: Continue to incorporate unconventional route combinations in common formations to maintain unpredictability and maximize yardage potential against standard defensive shells like Cover 2."
+  },
+  {
+    "iteration": 6,
+    "play": {
+      "play_name": "Viking Slayer",
+      "personnel": "12",
+      "personnel_formation": "Slot Right",
+      "ey_ps_analysis": "This formation leverages 12 personnel to provide a balanced run-pass threat, which is uncommon on 1st and 10, reducing predictability. The routes are designed to challenge the 2-high shell, increasing expected yards.",
+      "route_responsibilities": {
+        "L1": "Post",
+        "L2": "Vertical",
+        "R1": "Corner",
+        "R2": "Cross",
+        "R3": "Flat"
+      },
+      "safety_bind": "The Post from L1 and Vertical from L2 clear out the safeties, forcing them to respect the deep threats, putting them in a high-low bind with the Corner route from R1.",
+      "progression": "Alert -> R1 -> L2 -> R2 -> R3"
+    },
+    "critique": {
+      "predictability_score": -0.0154,
+      "expected_yards": 4.41,
+      "critique": "Good. High efficiency and low predictability.",
+      "details": {
+        "pred_details": {
+          "match_name": "Slot Right",
+          "all_probs": [
+            0.18116731941699982,
+            0.11391178518533707,
+            0.1075938418507576,
+            0.08945578336715698,
+            0.08607025444507599,
+            0.11155544966459274,
+            0.07308551669120789,
+            0.09688203036785126,
+            0.07787428796291351,
+            0.01572009176015854,
+            0.021401477977633476,
+            0.01666112430393696,
+            0.007686675991863012,
+            0.0009344073478132486
+          ]
+        },
+        "exp_details": "Range: 0.0 - 18.4",
+        "features": {
+          "Down": 1,
+          "ToGo": 10,
+          "DistanceToGo": 65,
+          "TimeLeftQTR": 900,
+          "OffLeadBefore": 0,
+          "QTR": 1,
+          "2MinWarning": 0,
+          "Safeties": 2,
+          "BoxCount": 7,
+          "CoverageType": "Cover 2",
+          "Dropback": 1,
+          "DropDepth": 3,
+          "PlayConcept": "Standard",
+          "Personnel": "12",
+          "ReceiverAlignment": "Slot Right",
+          "L1": "Post",
+          "L2": "Vertical",
+          "L3": "No Route",
+          "L4": "No Route",
+          "R4": "No Route",
+          "R3": "Flat",
+          "R2": "Cross",
+          "R1": "Corner",
+          "DefAvgRun": 3.771,
+          "DefAvgPass": 5.306
+        }
+      }
+    },
+    "rationale": "The play achieved a low predictability score (-0.0154), indicating it was successful in being unpredictable. This is likely due to the use of 12 personnel, which is less common on 1st and 10, and challenges the defense with both run and pass threats. However, the expected yards (4.41) fell slightly below the target of 5.0. This suggests that while the play was effective in keeping the defense guessing, the routes themselves might not have fully exploited the 2-high shell. In particular, routes may have been too short to effectively stretch the defense vertically, limiting the potential yardage. Lesson Learned: Next time, consider incorporating deeper route concepts or using play-action to further stretch the defense and increase the expected yards, while maintaining low predictability with uncommon personnel groupings."
+  },
+  {
+    "iteration": 7,
+    "play": {
+      "play_name": "Viking Breaker",
+      "personnel": "12",
+      "personnel_formation": "Bunch Right",
+      "ey_ps_analysis": "The bunch formation with 12 personnel adds unpredictability, while the route combination creates a high-low bind on the left safety and an inside-out bind on the right safety, optimizing for Expected Yards.",
+      "route_responsibilities": {
+        "L1": "Post",
+        "R1": "Vertical",
+        "R2": "Corner",
+        "R3": "Flat",
+        "R4": "Cross"
+      },
+      "safety_bind": "The L1 Post and R1 Vertical create a high-low bind on the left safety, while the R2 Corner and R3 Flat create an inside-out bind on the right safety.",
+      "progression": "R2 -> L1 -> R4 -> R3 -> R1"
+    },
+    "critique": {
+      "predictability_score": -0.1056,
+      "expected_yards": 3.86,
+      "critique": "INEFFICIENT: Expected Yards (3.9) is too low.",
+      "details": {
+        "pred_details": {
+          "match_name": "Bunch Right",
+          "all_probs": [
+            0.18116731941699982,
+            0.11391178518533707,
+            0.1075938418507576,
+            0.08945578336715698,
+            0.08607025444507599,
+            0.11155544966459274,
+            0.07308551669120789,
+            0.09688203036785126,
+            0.07787428796291351,
+            0.01572009176015854,
+            0.021401477977633476,
+            0.01666112430393696,
+            0.007686675991863012,
+            0.0009344073478132486
+          ]
+        },
+        "exp_details": "Range: 0.0 - 20.3",
+        "features": {
+          "Down": 1,
+          "ToGo": 10,
+          "DistanceToGo": 65,
+          "TimeLeftQTR": 900,
+          "OffLeadBefore": 0,
+          "QTR": 1,
+          "2MinWarning": 0,
+          "Safeties": 2,
+          "BoxCount": 7,
+          "CoverageType": "Cover 2",
+          "Dropback": 1,
+          "DropDepth": 3,
+          "PlayConcept": "Standard",
+          "Personnel": "12",
+          "ReceiverAlignment": "Bunch Right",
+          "L1": "Post",
+          "L2": "No Route",
+          "L3": "No Route",
+          "L4": "No Route",
+          "R4": "Cross",
+          "R3": "Flat",
+          "R2": "Corner",
+          "R1": "Vertical",
+          "DefAvgRun": 3.771,
+          "DefAvgPass": 5.306
+        }
+      }
+    },
+    "rationale": "The model's predictability score of -0.1056 indicates that the play was relatively unpredictable, which is a positive aspect. However, the Expected Yards of 3.86 is low, suggesting inefficiency in the play design. The bunch formation with 12 personnel was intended to create mismatches, but the route combinations may not have effectively stretched the Cover 2 defense. The high-low bind on the left safety and the inside-out bind on the right safety likely failed to generate enough separation or exploit coverage gaps, leading to shorter gains. Specifically, the routes may have been too shallow or not well-timed to exploit the soft spots between zones typically found in a Cover 2. Lesson Learned: To improve Expected Yards, consider adjusting the route depths to better challenge the safeties and increase the likelihood of gaining more yardage, particularly against a Cover 2 shell."
+  },
+  {
+    "iteration": 8,
+    "play": {
+      "play_name": "Viking Vanish",
+      "personnel": "12",
+      "personnel_formation": "Trips Right",
+      "ey_ps_analysis": "This play uses a Trips Right formation to create mismatches by stretching the field vertically and horizontally. The use of a 'Vertical' and 'Post' route puts the safeties in a High-Low bind, while the 'Corner' route attacks the 'Honey Hole'. The predictability score is low due to the unique configuration against a 2-high shell.",
+      "route_responsibilities": {
+        "L1": "Vertical",
+        "R1": "Post",
+        "R2": "Corner",
+        "R3": "Cross",
+        "L2": "Flat"
+      },
+      "safety_bind": "The Post route from R1 draws one safety deep, while the Vertical from L1 occupies the other safety. This opens up space for the Corner route from R2 to exploit the 'Honey Hole'.",
+      "progression": "R1 (Post) -> R2 (Corner) -> L2 (Flat)"
+    },
+    "critique": {
+      "predictability_score": -0.0409,
+      "expected_yards": 4.85,
+      "critique": "Good. High efficiency and low predictability.",
+      "details": {
+        "pred_details": {
+          "match_name": "Trips Right",
+          "all_probs": [
+            0.18116731941699982,
+            0.11391178518533707,
+            0.1075938418507576,
+            0.08945578336715698,
+            0.08607025444507599,
+            0.11155544966459274,
+            0.07308551669120789,
+            0.09688203036785126,
+            0.07787428796291351,
+            0.01572009176015854,
+            0.021401477977633476,
+            0.01666112430393696,
+            0.007686675991863012,
+            0.0009344073478132486
+          ]
+        },
+        "exp_details": "Range: 0.0 - 20.3",
+        "features": {
+          "Down": 1,
+          "ToGo": 10,
+          "DistanceToGo": 65,
+          "TimeLeftQTR": 900,
+          "OffLeadBefore": 0,
+          "QTR": 1,
+          "2MinWarning": 0,
+          "Safeties": 2,
+          "BoxCount": 7,
+          "CoverageType": "Cover 2",
+          "Dropback": 1,
+          "DropDepth": 3,
+          "PlayConcept": "Standard",
+          "Personnel": "12",
+          "ReceiverAlignment": "Trips Right",
+          "L1": "Vertical",
+          "L2": "Flat",
+          "L3": "No Route",
+          "L4": "No Route",
+          "R4": "No Route",
+          "R3": "Cross",
+          "R2": "Corner",
+          "R1": "Post",
+          "DefAvgRun": 3.771,
+          "DefAvgPass": 5.306
+        }
+      }
+    },
+    "rationale": "The play was evaluated with a low predictability score (-0.0409), indicating its configuration in Trips Right against a Cover 2 defense was novel and unexpected, effectively creating mismatches. However, the expected yards (4.85) were slightly below the target because the 'Corner' route attacking the 'Honey Hole' might not have been effectively executed to maximize yards after catch, or the 'Vertical' and 'Post' routes did not sufficiently stretch the safeties to open up larger windows. Lesson Learned: To improve expected yards, ensure the 'Corner' route is run with precision to exploit the 'Honey Hole' more effectively, and consider incorporating additional route adjustments to maximize space against the 2-high shell."
+  },
+  {
+    "iteration": 9,
+    "play": {
+      "play_name": "Viking Splitter",
+      "personnel": "12",
+      "personnel_formation": "Trips Right",
+      "ey_ps_analysis": "This play leverages a unique Trips Right formation with two tight ends to create deception and put the defense in a high-low bind. It uses a 'Vertical' route to clear out safeties, allowing an 'Out' route to exploit the 'Honey Hole.' The play diverges from common passing concepts on 1st & 10, ensuring low predictability.",
+      "route_responsibilities": {
+        "L1": "Post",
+        "R1": "Vertical",
+        "R2": "Out",
+        "R3": "Corner",
+        "L2": "Flat"
+      },
+      "safety_bind": "R1's Vertical route stretches the safeties deep, while R3's Corner route and R2's Out route create a high-low bind on the right safety.",
+      "progression": "R1 (Vertical) -> R2 (Out) -> R3 (Corner) -> L1 (Post) -> L2 (Flat)"
+    },
+    "critique": {
+      "predictability_score": -0.0409,
+      "expected_yards": 4.93,
+      "critique": "Good. High efficiency and low predictability.",
+      "details": {
+        "pred_details": {
+          "match_name": "Trips Right",
+          "all_probs": [
+            0.18116731941699982,
+            0.11391178518533707,
+            0.1075938418507576,
+            0.08945578336715698,
+            0.08607025444507599,
+            0.11155544966459274,
+            0.07308551669120789,
+            0.09688203036785126,
+            0.07787428796291351,
+            0.01572009176015854,
+            0.021401477977633476,
+            0.01666112430393696,
+            0.007686675991863012,
+            0.0009344073478132486
+          ]
+        },
+        "exp_details": "Range: 0.0 - 20.7",
+        "features": {
+          "Down": 1,
+          "ToGo": 10,
+          "DistanceToGo": 65,
+          "TimeLeftQTR": 900,
+          "OffLeadBefore": 0,
+          "QTR": 1,
+          "2MinWarning": 0,
+          "Safeties": 2,
+          "BoxCount": 7,
+          "CoverageType": "Cover 2",
+          "Dropback": 1,
+          "DropDepth": 3,
+          "PlayConcept": "Standard",
+          "Personnel": "12",
+          "ReceiverAlignment": "Trips Right",
+          "L1": "Post",
+          "L2": "Flat",
+          "L3": "No Route",
+          "L4": "No Route",
+          "R4": "No Route",
+          "R3": "Corner",
+          "R2": "Out",
+          "R1": "Vertical",
+          "DefAvgRun": 3.771,
+          "DefAvgPass": 5.306
+        }
+      }
+    },
+    "rationale": "The play's predictability score is well below the target, indicating that the model found the play to be unpredictable. The use of a unique Trips Right formation with two tight ends likely contributed to this low predictability, as it diverges from common passing concepts on 1st & 10. However, the expected yards of 4.93 is slightly below the target of 5.0, suggesting that the routes may not have fully exploited the defense's weaknesses. In particular, the 'Vertical' route may not have effectively cleared out the safeties, or the 'Out' route may not have fully capitalized on the space in the 'Honey Hole.' For future iterations, ensuring that the 'Vertical' route is run with enough speed and precision to effectively clear space for the 'Out' route could improve yardage. Lesson Learned: Focus on refining route execution to maximize yardage potential while maintaining low predictability."
+  },
+  {
+    "iteration": 10,
+    "play": {
+      "play_name": "Twin Vortex",
+      "personnel": "12",
+      "personnel_formation": "Bunch Right",
+      "ey_ps_analysis": "By using '12' personnel and a Bunch Right formation, we introduce a less predictable setup that can effectively challenge the 2-high shell by creating vertical and intermediate threats. The play leverages the bunch to clear out safeties and exploit the honey hole with a corner route.",
+      "route_responsibilities": {
+        "L1": "Vertical",
+        "R1": "Post",
+        "R2": "Corner",
+        "R3": "Vertical",
+        "R4": "Flat"
+      },
+      "safety_bind": "The Post (R1) and Corner (R2) routes place the safeties in a high-low bind. The vertical routes (L1 and R3) further clear out space and force the safeties to respect deep threats.",
+      "progression": "R2 -> R1 -> R4"
+    },
+    "critique": {
+      "predictability_score": -0.1056,
+      "expected_yards": 4.2,
+      "critique": "INEFFICIENT: Expected Yards (4.2) is too low.",
+      "details": {
+        "pred_details": {
+          "match_name": "Bunch Right",
+          "all_probs": [
+            0.18116731941699982,
+            0.11391178518533707,
+            0.1075938418507576,
+            0.08945578336715698,
+            0.08607025444507599,
+            0.11155544966459274,
+            0.07308551669120789,
+            0.09688203036785126,
+            0.07787428796291351,
+            0.01572009176015854,
+            0.021401477977633476,
+            0.01666112430393696,
+            0.007686675991863012,
+            0.0009344073478132486
+          ]
+        },
+        "exp_details": "Range: 0.0 - 20.7",
+        "features": {
+          "Down": 1,
+          "ToGo": 10,
+          "DistanceToGo": 65,
+          "TimeLeftQTR": 900,
+          "OffLeadBefore": 0,
+          "QTR": 1,
+          "2MinWarning": 0,
+          "Safeties": 2,
+          "BoxCount": 7,
+          "CoverageType": "Cover 2",
+          "Dropback": 1,
+          "DropDepth": 3,
+          "PlayConcept": "Standard",
+          "Personnel": "12",
+          "ReceiverAlignment": "Bunch Right",
+          "L1": "Vertical",
+          "L2": "No Route",
+          "L3": "No Route",
+          "L4": "No Route",
+          "R4": "Flat",
+          "R3": "Vertical",
+          "R2": "Corner",
+          "R1": "Post",
+          "DefAvgRun": 3.771,
+          "DefAvgPass": 5.306
+        }
+      }
+    },
+    "rationale": "The model evaluated the play's predictability at -0.1056, which is slightly above the target threshold, indicating a moderate level of unpredictability. However, the Expected Yards of 4.2 is notably below the target of 5.0, classifying the play as inefficient. This low expected yardage suggests that the route concept failed to adequately stress the defense. The use of '12' personnel with a Bunch Right formation was intended to create mismatches and exploit the Cover 2's zone weaknesses, specifically targeting the 'honey hole' between the cornerback and safety. However, if the corner route did not effectively pull the deep zone defenders, or if the intermediate routes did not sufficiently occupy the linebackers, the defense could maintain coverage integrity and minimize yardage gained. The vertical threats may not have been deep enough to force safeties out of position, allowing them to assist in covering shorter routes. Lesson Learned: Consider incorporating deeper routes or more aggressive vertical threats to stretch the defense vertically, ensuring safeties are occupied and creating more space underneath for intermediate routes, thereby increasing potential yardage."
+  },
+  {
+    "type": "summary",
+    "best_iteration": 4,
+    "score": 6.0045,
+    "play": {
+      "play_name": "Viking Vortex",
+      "personnel": "12",
+      "personnel_formation": "Trips Right",
+      "ey_ps_analysis": "The play utilizes a strong vertical threat to clear out the safeties, opening up the intermediate 'Honey Hole' for high yardage potential. The use of a less common 12 personnel on 1st and 10 adds unpredictability.",
+      "route_responsibilities": {
+        "L1": "Comeback",
+        "R1": "Vertical",
+        "R2": "Post",
+        "R3": "Out",
+        "L2": "Cross"
+      },
+      "safety_bind": "R1's Vertical route forces the deep safeties to respect the deep threat, while R2's Post places them in a high-low bind, creating space for L2's Cross and R3's Out.",
+      "progression": "R2 (Post) -> L2 (Cross) -> R3 (Out) -> L1 (Comeback) -> Checkdown"
+    },
+    "critique": {
+      "predictability_score": -0.067,
+      "expected_yards": 6.1,
+      "critique": "Good. High efficiency and low predictability.",
+      "details": {
+        "pred_details": {
+          "match_name": "Trips Right",
+          "all_probs": [
+            0.18116731941699982,
+            0.11391178518533707,
+            0.1075938418507576,
+            0.08945578336715698,
+            0.08607025444507599,
+            0.11155544966459274,
+            0.07308551669120789,
+            0.09688203036785126,
+            0.07787428796291351,
+            0.01572009176015854,
+            0.021401477977633476,
+            0.01666112430393696,
+            0.007686675991863012,
+            0.0009344073478132486
+          ]
+        },
+        "exp_details": "Range: 0.0 - 21.7",
+        "features": {
+          "Down": 1,
+          "ToGo": 10,
+          "DistanceToGo": 65,
+          "TimeLeftQTR": 900,
+          "OffLeadBefore": 0,
+          "QTR": 1,
+          "2MinWarning": 0,
+          "Safeties": 2,
+          "BoxCount": 7,
+          "CoverageType": "Cover 2",
+          "Dropback": 1,
+          "DropDepth": 3,
+          "PlayConcept": "Standard",
+          "Personnel": "12",
+          "ReceiverAlignment": "Trips Right",
+          "L1": "Comeback",
+          "L2": "Cross",
+          "L3": "No Route",
+          "L4": "No Route",
+          "R4": "No Route",
+          "R3": "Out",
+          "R2": "Post",
+          "R1": "Vertical",
+          "DefAvgRun": 3.771,
+          "DefAvgPass": 5.306
+        }
+      }
+    },
+    "rationale": "This play achieved the highest Composite Score of 6.0045. It balanced a high Expected Yards value (6.10) with a favorable Predictability Score (-0.0067). The combination of 12 personnel and Trips Right effectively optimized the trade-off between efficiency and novelty."
+  }
+]

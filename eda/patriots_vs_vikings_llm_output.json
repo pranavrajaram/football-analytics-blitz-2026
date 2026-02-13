@@ -1,0 +1,14 @@
+{
+  "formation": "11 Personnel, Gun Trips Right Y-Off (RB Left), Play-Action Wide Zone Left",
+  "routes": {
+    "L1": "X iso: Deep Post (20+; bend across boundary safety)",
+    "L2": "N/A (no eligible)",
+    "L3": "N/A (no eligible)",
+    "L4": "RB: Play-action fake, then check-release Swing left",
+    "R4": "N/A (no eligible)",
+    "R3": "Y-off: Seam/Bender 20+ (read field safety; bend away from leverage)",
+    "R2": "Slot: Switch-Release Speed Corner 18\u201322 to numbers (honey-hole)",
+    "R1": "Z: Switch-Release Go (inside-over to cap CB/S)"
+  },
+  "rationale": "R3 seam (high) with R2 speed-corner (intermediate) puts the field safety in a high-low bind while L1\u2019s post freezes the boundary safety. Progression: Alert L1 Post vs 1-high -> Primary R2 Corner -> Secondary R3 Seam if S drives -> Checkdown L4 Swing."
+}
