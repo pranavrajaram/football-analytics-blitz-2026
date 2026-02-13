@@ -11,7 +11,7 @@ import torch.nn as nn
 import pickle
 
 # --- 1. CONFIGURATION ---
-st.set_page_config(page_title="McvAI: Beat the 2-High", layout="wide")
+st.set_page_config(page_title="Sean McVAI: Beating 2-High", layout="wide")
 
 # --- 2. MODEL DEFINITIONS ---
 class PredictabilityLSTM(nn.Module):
@@ -144,12 +144,25 @@ field_pos = st.sidebar.slider("Field Position", 1, 99, 35)
 st.sidebar.markdown("---")
 st.sidebar.markdown("### **DEFENSE: 2-HIGH SHELL**")
 coverage_variant = st.sidebar.selectbox("Variant", ['Cover 2', 'Cover 4', 'Man Cover 2'], index=0)
-box_count = st.sidebar.slider("Box Count", 3, 9, 6)
+box_count = st.sidebar.slider("Box Count", 3, 9, 7)
 safeties = st.sidebar.slider("Deep Safeties (Post-Snap)", 0, 2, 2)
 
 st.sidebar.markdown("---")
 st.sidebar.header("3. Offensive Identity")
-off_team_opts = pred_meta['off_team_vocab'] if pred_meta else ['MIN', 'KC', 'NE']
+target_teams = ['NE ', 'BUF', 'KC ']
+
+# Filter the model's vocabulary to only include those three
+if pred_meta:
+    # We use a list comprehension to ensure we only show teams the model actually knows
+    off_team_opts = [t for t in target_teams if t in pred_meta['off_team_vocab']]
+else:
+    off_team_opts = target_teams
+
+# If for some reason the list is empty (model didn't load), fallback to target_teams
+if not off_team_opts:
+    off_team_opts = target_teams
+
+# Display the selectbox. index=0 will now default to 'KC' (or whichever is first in your target_teams)
 off_team = st.sidebar.selectbox("Offensive Unit", off_team_opts, index=0)
 score_diff = st.sidebar.number_input("Offense Lead/Trail", value=0)
 
@@ -162,34 +175,66 @@ context_dict = {
 }
 
 # --- 5. MAIN AREA ---
-st.title("🏈 PlayCaller AI: Predictive Planner")
+st.title("🏈 Sean McVAI: Play Design Lab")
 col_settings, col_formation, col_results = st.columns([1, 1.5, 2])
 
 with col_settings:
     st.subheader("Strategy")
-    personnel = st.selectbox("Personnel", ['11', '12', '21', '22', '10', '13', '01'])
+    personnel = st.selectbox("Personnel", ['11', '21', '12', '13', '01', '22', '20', '10', '02', '03', '04', '00', '32', '31', '14'])
     concept = st.selectbox("Concept", ['Standard', 'Rollout', 'RPO', 'Screen', 'Trick'])
     alignment = st.selectbox("Alignment", ['Spread', 'Slot Left', 'Slot Right', 'Trips Right', 'Trips Left', 'Balanced', 'Bunch Right', 'Bunch Left', 'Goal Line'], index=0)
     drop_depth = st.select_slider("Drop Depth", options=[0, 1, 3, 5, 7], value=5)
 
+# --- COLUMN 2: Route Assignment ---
 with col_formation:
     st.subheader("Route Tree")
+    st.caption("Assign routes (Left -> Right). 'No Route' = Blocking.")
     route_opts = ['Cross', 'No Route', 'Vertical', 'Hook', 'Shallow', 'Out', 'Comeback', 'Post', 'Corner', 'Flat', 'Screen']
-    l1 = st.selectbox("L1", route_opts, index=2); l2 = st.selectbox("L2", route_opts, index=1)
-    l3 = st.selectbox("L3", route_opts, index=1); l4 = st.selectbox("L4", route_opts, index=1)
+    
+    # Capture all route inputs with unique variable names
+    l1_r = st.selectbox("L1", route_opts, index=2)
+    l2_r = st.selectbox("L2", route_opts, index=1)
+    l3_r = st.selectbox("L3", route_opts, index=1)
+    l4_r = st.selectbox("L4", route_opts, index=1)
+    
     st.markdown("--- center ---")
-    r4 = st.selectbox("R4", route_opts, index=1); r3 = st.selectbox("R3", route_opts, index=1)
-    r2 = st.selectbox("R2", route_opts, index=1); r1 = st.selectbox("R1", route_opts, index=2) 
-    sim_btn = st.button("Simulate Play Outcome", type="primary")
+    
+    r4_r = st.selectbox("R4", route_opts, index=1)
+    r3_r = st.selectbox("R3", route_opts, index=1)
+    r2_r = st.selectbox("R2", route_opts, index=1)
+    r1_r = st.selectbox("R1", route_opts, index=2) 
+
+    # --- ELIGIBLE RECEIVER COUNTER ---
+    # List all current selections
+    all_routes = [l1_r, l2_r, l3_r, l4_r, r4_r, r3_r, r2_r, r1_r]
+    # Count how many are NOT 'No Route'
+    eligible_count = sum(1 for route in all_routes if route != 'No Route')
+    
+    # Visual Feedback & Button State
+    if eligible_count > 6:
+        st.error(f"⚠️ Illegal Formation: {eligible_count} Routes (NFL Max is 6)")
+        sim_disabled = True
+    else:
+        st.success(f"Eligible Receivers: {eligible_count}/6")
+        sim_disabled = False
+
+    # Simulate button is disabled if validation fails
+    sim_btn = st.button(
+        "Simulate Play Outcome", 
+        type="primary", 
+        disabled=sim_disabled,
+        help="You cannot have more than 5 players running routes."
+    )
 
 # --- COLUMN 3: Results ---
 with col_results:
-    if sim_btn and q_models:
+    if sim_btn and not sim_disabled and q_models:
         play_dict = context_dict.copy()
         play_dict.update({
             'Dropback': 1 if drop_depth > 0 else 0, 'DropDepth': drop_depth,
             'PlayConcept': concept, 'Personnel': personnel, 'ReceiverAlignment': alignment,
-            'L1': l1, 'L2': l2, 'L3': l3, 'L4': l4, 'R4': r4, 'R3': r3, 'R2': r2, 'R1': r1
+            'L1': l1_r, 'L2': l2_r, 'L3': l3_r, 'L4': l4_r, 
+            'R4': r4_r, 'R3': r3_r, 'R2': r2_r, 'R1': r1_r
         })
         input_df = pd.DataFrame([play_dict])
         preds = {name: model.predict(input_df)[0] for name, model in q_models.items()}
@@ -205,9 +250,9 @@ with col_results:
         ceil_lbl = "Deep Shot 🚀" if ceiling >= 20 else "Chunk Play" if ceiling >= 10 else "Conservative"
         
         m1, m2, m3 = st.columns(3)
-        m1.metric("Floor (10th %)", f"{floor:.1f} yds", floor_lbl, delta_color=floor_clr)
-        m2.metric("Median Exp.", f"{median:.1f}", f"{median - distance:+.1f} vs Marker")
-        m3.metric("Ceiling (90th %)", f"{ceiling:.1f}", ceil_lbl)
+        m1.metric("Floor (10th %)", f"{floor:.1f} yds")
+        m2.metric("Median (50th %)", f"{median:.1f} yds", f"{median - distance:+.1f} to Goal")
+        m3.metric("Ceiling (90th %)", f"{ceiling:.1f} yds")
 
         # Expected Yards Plot
         try:
@@ -228,75 +273,86 @@ with col_results:
                 if min(x_smooth) < 0:
                     ax.axvspan(min(x_smooth), 0, color='#E0245E', alpha=0.1, label='Loss Risk')
 
-                ax.set_ylabel("Probability Density", fontsize=10)
-                ax.tick_params(axis='y', labelsize=8)
+                ax.set_ylabel("Probability Density", fontsize=9)
+                ax.set_yticks([])
                 ax.set_xlabel("Yards Gained")
                 ax.legend(loc='upper right', fontsize='small')
-                sns.despine(left=False)
+                sns.despine(left=True)
                 st.pyplot(fig)
         except Exception: st.info("Outcome variance too low for visualization.")
 
-# --- UPDATED AI SCOUT ANALYSIS (Probability Based) ---
+        # --- UPDATED AI SCOUT ANALYSIS ---
         if pred_model and pred_meta:
             st.markdown("---")
-            st.subheader(f"🤖 AI Scout Analysis: {off_team}")
+            st.subheader(f"AI Scout Analysis: {off_team}")
             
-            # 1. Inputs (same as before)
-            time_sec = 3600
+            # 1. Prepare Inputs
+            # FIX A (Shared Error): Set OL feature to 0.5 to match training scaling for "empty history"
+            seq_input = torch.zeros((1, 8, pred_meta['SEQ_INPUT_DIM']))
+            seq_input[:, :, 3] = 0.5  
+            
+            drive_context = torch.zeros((1, pred_meta['DRIVE_CONTEXT_DIM']))
+            
+            # FIX B (The Discrepancy): Use field_pos / 100.0 directly (Match Partner)
+            # Also ensure score_diff matches their hardcoded 0.0 if you want exact parity.
             gs_vec = np.array([
-                (down - 1) / 3.0, (distance - 1) / 18.0,
-                np.clip(np.sin(2*np.pi*time_sec/3600), -1, 1),
-                np.clip(np.cos(2*np.pi*time_sec/3600), -1, 1),
+                (down - 1) / 3.0, 
+                (distance - 1) / 18.0,
+                0.0, # sin(time)
+                1.0, # cos(time)
                 np.clip(score_diff, -40, 40) / 80.0,
-                np.clip(100 - field_pos, 0, 100) / 100.0
+                field_pos / 100.0  # <--- CHANGED: Removed "100 - " to match partner/training
             ], dtype=np.float32)
 
             with torch.no_grad():
                 pass_l, form_l = pred_model(
-                    torch.zeros((1, 8, pred_meta['SEQ_INPUT_DIM'])), 
-                    torch.zeros((1, pred_meta['DRIVE_CONTEXT_DIM'])), 
+                    seq_input, 
+                    drive_context, 
                     torch.tensor(gs_vec).unsqueeze(0), 
                     torch.tensor([pred_meta['off_team_to_idx'].get(off_team, 0)])
                 )
                 p_prob = torch.sigmoid(pass_l).item()
                 f_probs = torch.softmax(form_l, dim=1).numpy()[0]
             
-            # --- NEW CALCULATION LOGIC (Matching your CSV scale) ---
-            
-            # 1. Play Type Predictability (Deviation from situational baseline)
-            # Baseline: On 3rd & 10, Pass prob is usually ~0.85. 
-            # We use 0.5 as a neutral anchor for the simulation.
-            user_is_pass = 1.0 if drop_depth > 0 else 0.0
-            pass_diff = (p_prob - 0.5) if user_is_pass else (0.5 - p_prob)
-            
-            # 2. Formation Predictability (Matching CSV P_score - Mean_P_score)
+            # 2. Predictability Score Calculation
             idx_f = pred_meta['formation_to_idx'].get(alignment)
+            
+            # Fuzzy match
+            if idx_f is None:
+                formation_lower = alignment.lower()
+                for name, idx in pred_meta['formation_to_idx'].items():
+                    if name.lower() in formation_lower or formation_lower in name.lower():
+                        idx_f = idx
+                        break
+            
             if idx_f is not None:
-                actual_prob = f_probs[idx_f]
-                # situational mean for formations in top 100 is roughly 0.12
-                mean_prob = 1.0 / len(f_probs) 
-                form_diff = actual_prob - mean_prob
+                raw_score = f_probs[idx_f]
+                match_name = pred_meta['FORMATION_LIST'][idx_f]
             else:
-                form_diff = -0.15 # Rare formation penalty
+                raw_score = np.mean(f_probs)
+                match_name = "Avg (Unknown Fm)"
 
-            # 3. Final Composite Index (Weighted to keep in -0.3 to 0.4 range)
-            # We weight the formation choice higher as that is what your CSV tracks.
-            pred_idx = (pass_diff * 0.3) + (form_diff * 0.7)
+            pred_idx = raw_score - 0.127
             
             # --- DISPLAY ---
             c1, c2, c3 = st.columns([1, 1, 1.5])
-            c1.metric("Likely Play", "Pass" if p_prob > 0.5 else "Run", f"{max(p_prob, 1-p_prob):.0%} Expected")
+            
+            c1.metric("Likely Play", "Pass" if p_prob > 0.5 else "Run")
             c2.metric("Likely Look", pred_meta['FORMATION_LIST'][np.argmax(f_probs)])
             
-            # Use your specific range for labeling
-            if pred_idx > 0.15:
-                label, color = "Highly Predictable", "inverse"
-            elif pred_idx < -0.10:
-                label = "Surprise Element"
-                color = "normal"
-            else:
-                label = "Situational Standard"
-                color = "off"
+            if pred_idx > 0.10: 
+                score_color = "inverse" 
+                label = "High Predictability"
+            elif pred_idx < -0.05: 
+                score_color = "normal" 
+                label = "Low Predictability"
+            else: 
+                score_color = "off"
+                label = "Standard"
 
-            c3.metric("Predictability Index", f"{pred_idx:.2f}", label, delta_color=color)
-            st.caption("Scale: -0.3 (Unpredictable) to +0.4 (Telegraphed)")
+            c3.metric(
+                "Predictability Index", 
+                f"{pred_idx:.3f}", 
+                delta=label,
+                delta_color=score_color
+            )
