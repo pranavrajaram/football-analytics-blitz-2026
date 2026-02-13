@@ -85,6 +85,22 @@ def bar_row(label: str, value: float, max_value: float, suffix: str = "") -> str
     )
 
 
+def bar_row_defense(label: str, epa_allowed: float, max_epa: float) -> str:
+    """
+    Lower EPA allowed is better. We invert the bar width so stronger defenses
+    have longer bars, but keep the displayed value as EPA.
+    """
+    score = max_epa - epa_allowed
+    width = 100 * (score / max_epa) if max_epa else 0
+    return (
+        f"<div class='bar-row'>"
+        f"<div class='bar-label'>{label}</div>"
+        f"<div class='bar'><div class='bar-fill' style='width:{width:.1f}%'></div></div>"
+        f"<div class='bar-val'>{epa_allowed:+.3f}</div>"
+        f"</div>"
+    )
+
+
 def main():
     # Aggregations
     defense_total = defaultdict(int)
@@ -94,6 +110,12 @@ def main():
 
     by_down_total = defaultdict(int)
     by_down_two = defaultdict(int)
+    by_zone_total = defaultdict(int)
+    by_zone_two = defaultdict(int)
+    by_score_total = defaultdict(int)
+    by_score_two = defaultdict(int)
+    by_time_total = defaultdict(int)
+    by_time_two = defaultdict(int)
 
     pr_epa_sum = defaultdict(float)
     pr_epa_n = defaultdict(int)
@@ -119,6 +141,40 @@ def main():
             by_down_total[down] += 1
             if two:
                 by_down_two[down] += 1
+
+        y100 = yardline_100(row.get("FieldSide"), row.get("StartYard"))
+        if y100 > 0:
+            zone = field_zone(y100)
+            by_zone_total[zone] += 1
+            if two:
+                by_zone_two[zone] += 1
+
+        # Score differential buckets (OffLeadBefore)
+        lead = to_int(row.get("OffLeadBefore"), 0)
+        if lead >= 4:
+            score_bucket = "Ahead"
+        elif lead <= -4:
+            score_bucket = "Behind"
+        else:
+            score_bucket = "Tied"
+        by_score_total[score_bucket] += 1
+        if two:
+            by_score_two[score_bucket] += 1
+
+        # Time remaining buckets
+        qtr = to_int(row.get("QTR"), 0)
+        tlq = to_int(row.get("TimeLeftQTR"), 0)
+        if qtr > 0:
+            time_left_game = (4 - qtr) * 900 + tlq
+            if time_left_game <= 600:
+                time_bucket = "Late"
+            elif time_left_game <= 1800:
+                time_bucket = "Mid"
+            else:
+                time_bucket = "Early"
+            by_time_total[time_bucket] += 1
+            if two:
+                by_time_two[time_bucket] += 1
 
         if def_team:
             defense_total[def_team] += 1
@@ -189,6 +245,30 @@ def main():
         rate = by_down_two[d] / by_down_total[d]
         by_down_rate.append((d, rate, by_down_two[d], by_down_total[d]))
 
+    # Zone rates
+    zone_order = ["backed_up", "own_territory", "midfield", "plus_territory", "red_zone"]
+    by_zone_rate = []
+    for z in zone_order:
+        if by_zone_total[z]:
+            rate = by_zone_two[z] / by_zone_total[z]
+            by_zone_rate.append((z, rate, by_zone_two[z], by_zone_total[z]))
+
+    # Score differential rates
+    score_order = ["Behind", "Tied", "Ahead"]
+    by_score_rate = []
+    for s in score_order:
+        if by_score_total[s]:
+            rate = by_score_two[s] / by_score_total[s]
+            by_score_rate.append((s, rate, by_score_two[s], by_score_total[s]))
+
+    # Time remaining rates
+    time_order = ["Early", "Mid", "Late"]
+    by_time_rate = []
+    for t in time_order:
+        if by_time_total[t]:
+            rate = by_time_two[t] / by_time_total[t]
+            by_time_rate.append((t, rate, by_time_two[t], by_time_total[t]))
+
     # Pass vs rush
     pr_stats = {}
     for k in ["pass", "rush"]:
@@ -251,17 +331,44 @@ def main():
         ]
     )
 
-    best_def = "\n".join(
+    zone_max = max([r for _, r, _, _ in by_zone_rate] or [1])
+    zone_rows = "\n".join(
         [
-            f"<li><strong>{t}</strong> — {avg:+.3f} EPA (n={n})</li>"
-            for t, avg, n in eff_sorted[:5]
+            bar_row(z.replace("_", " ").title(), r * 100, zone_max * 100, "%")
+            for z, r, _, _ in by_zone_rate
         ]
     )
-    worst_def = "\n".join(
+
+    score_max = max([r for _, r, _, _ in by_score_rate] or [1])
+    score_rows = "\n".join(
         [
-            f"<li><strong>{t}</strong> — {avg:+.3f} EPA (n={n})</li>"
-            for t, avg, n in eff_sorted[-5:][::-1]
+            bar_row(s, r * 100, score_max * 100, "%")
+            for s, r, _, _ in by_score_rate
         ]
+    )
+
+    time_max = max([r for _, r, _, _ in by_time_rate] or [1])
+    time_rows = "\n".join(
+        [
+            bar_row(t, r * 100, time_max * 100, "%")
+            for t, r, _, _ in by_time_rate
+        ]
+    )
+
+    best_def = "\n".join(
+        []
+    )
+    worst_def = "\n".join(
+        []
+    )
+    eff_best = eff_sorted[:5]
+    eff_worst = eff_sorted[-5:][::-1]
+    max_epa = max([avg for _, avg, _ in eff_sorted] or [1])
+    eff_best_rows = "\n".join(
+        [bar_row_defense(t, avg, max_epa) for t, avg, _ in eff_best]
+    )
+    eff_worst_rows = "\n".join(
+        [bar_row_defense(t, avg, max_epa) for t, avg, _ in eff_worst]
     )
 
     pass_tile = pr_stats.get("pass", {"epa": 0, "yards": 0, "n": 0, "success": 0})
@@ -316,7 +423,7 @@ def main():
 }}
 * {{ box-sizing: border-box; }}
 body {{ margin:0; font-family: 'Avenir Next', 'Helvetica Neue', Arial, sans-serif; color: var(--ink); background: var(--mist); }}
-.slide {{ width: 13.333in; height: 7.5in; padding: 0.55in 0.65in; page-break-after: always; background: var(--mist); position: relative; overflow: hidden; }}
+.slide {{ width: 13.333in; height: 7.5in; padding: 0.28in 0.36in; page-break-after: always; background: var(--mist); position: relative; overflow: hidden; }}
 .h1 {{ font-size: 40px; font-weight: 700; letter-spacing: -0.5px; margin: 0 0 10px 0; color: var(--forest); }}
 .h2 {{ font-size: 24px; font-weight: 700; margin: 8px 0 14px 0; color: var(--forest); }}
 .h3 {{ font-size: 18px; font-weight: 700; margin: 12px 0 8px 0; color: var(--forest); }}
@@ -366,6 +473,10 @@ body {{ margin:0; font-family: 'Avenir Next', 'Helvetica Neue', Arial, sans-seri
   body {{ background: white; }}
   .slide {{ box-shadow: none; }}
 }}
+@page {{
+  size: 13.333in 7.5in;
+  margin: 0;
+}}
 </style>
 </head>
 <body>
@@ -377,6 +488,8 @@ body {{ margin:0; font-family: 'Avenir Next', 'Helvetica Neue', Arial, sans-seri
       <div class='h1'>Defeating the Two-High</div>
       <div class='sub'>Strategic offensive adaptations, data-driven counters, and a concrete play design vs Minnesota's two-high shell.</div>
       <div class='h3'>Team: Patriots vs Vikings</div>
+      <div class='sub' style='margin-top:6px;'>Sixth Annual Event — February 13, 2026</div>
+      <div class='note'>Case: Austin Ambler • Dr. Jeremy Losak • Alex Vigderman (SIS)</div>
     </div>
     <div class='card'>
       <div class='h2'>What We Deliver</div>
@@ -388,6 +501,31 @@ body {{ margin:0; font-family: 'Avenir Next', 'Helvetica Neue', Arial, sans-seri
     </div>
   </div>
   <div class='footer'>Data: 2026_FAB_play_by_play</div>
+</section>
+
+<section class='slide'>
+  <div class='section-tag'>Context</div>
+  <div class='h1'>Why Two-High Now</div>
+  <div class='row'>
+    <div class='col card'>
+      <div class='h2'>League Shift (case context)</div>
+      <ul class='bullet'>
+        <li>Two-high usage rose from ~44% (2019) to ~63% (2024).</li>
+        <li>Deep-pass EPA relationship weakened from 2015–2020 to 2022–2025.</li>
+        <li>Offenses adapted with short/intermediate counters and run balance.</li>
+      </ul>
+      <div class='note'>Numbers cited from the case prompt (NextGenStats, Tej Seth).</div>
+    </div>
+    <div class='col card'>
+      <div class='h2'>Key Questions We Answer</div>
+      <ul class='bullet'>
+        <li>When/why do defenses choose two-high?</li>
+        <li>Which teams use it most/least and execute it best/worst?</li>
+        <li>Which formations/routes attack it while staying disguised?</li>
+        <li>How should NE adjust vs a two-high heavy defense?</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <section class='slide'>
@@ -440,6 +578,11 @@ body {{ margin:0; font-family: 'Avenir Next', 'Helvetica Neue', Arial, sans-seri
         <li>Predictability Score = P(formation | context). Lower = more surprising.</li>
         <li>This gives a measurable “deception” axis, not just intuition.</li>
       </ul>
+      <div class='h2' style='margin-top:10px;'>Expected Yards Model</div>
+      <ul class='bullet'>
+        <li>Contextual EY from historical two-high plays in the same down/distance/field zone.</li>
+        <li>Fallback to broader two-high averages if context samples are sparse.</li>
+      </ul>
       <div class='h2' style='margin-top:10px;'>EDA-Powered Feedback</div>
       <ul class='bullet'>
         <li>We score EY and predictability after generation.</li>
@@ -465,39 +608,55 @@ body {{ margin:0; font-family: 'Avenir Next', 'Helvetica Neue', Arial, sans-seri
 
 <section class='slide'>
   <div class='section-tag'>Part 1</div>
-  <div class='h1'>When Defenses Call Two-High</div>
+  <div class='h1'>Situational Drivers of Two-High</div>
   <div class='row'>
     <div class='col card'>
       <div class='h2'>Two-High Rate by Down</div>
       {down_rows}
     </div>
     <div class='col card'>
-      <div class='h2'>Highest Usage Teams</div>
-      {usage_top_rows}
-      <div class='h2' style='margin-top:16px;'>Lowest Usage Teams</div>
-      {usage_bottom_rows}
+      <div class='h2'>Two-High by Field Zone</div>
+      {zone_rows}
+    </div>
+  </div>
+  <div class='row' style='margin-top:12px;'>
+    <div class='col card'>
+      <div class='h2'>Two-High by Score State</div>
+      {score_rows}
+    </div>
+    <div class='col card'>
+      <div class='h2'>Two-High by Time Remaining</div>
+      {time_rows}
     </div>
   </div>
 </section>
 
 <section class='slide'>
   <div class='section-tag'>Part 1</div>
-  <div class='h1'>Two-High Effectiveness by Team</div>
+  <div class='h1'>League Trends & Team Profiles</div>
   <div class='row'>
     <div class='col card'>
-      <div class='h2'>Most Effective (Lowest Pass EPA Allowed)</div>
-      <ul class='bullet'>
-        {best_def}
-      </ul>
+      <div class='h2'>Highest Usage Teams</div>
+      {usage_top_rows}
+      <div class='h2' style='margin-top:16px;'>Lowest Usage Teams</div>
+      {usage_bottom_rows}
     </div>
     <div class='col card'>
-      <div class='h2'>Least Effective (Highest Pass EPA Allowed)</div>
+      <div class='h2'>Most Effective (Lowest Pass EPA Allowed)</div>
+      {eff_best_rows}
+      <div class='h2' style='margin-top:16px;'>Least Effective (Highest Pass EPA Allowed)</div>
+      {eff_worst_rows}
+    </div>
+  </div>
+  <div class='row' style='margin-top:12px;'>
+    <div class='col card'>
+      <div class='h2'>Context Summary</div>
       <ul class='bullet'>
-        {worst_def}
+        <li>Coverage frequency varies by situation and opponent tendencies.</li>
+        <li>Effectiveness depends on personnel quality and disguise, not just shell choice.</li>
       </ul>
     </div>
   </div>
-  <div class='sub' style='margin-top:10px;'>Interpretation: two-high usage varies widely by team; effectiveness depends on the pass rush + disguise quality, not just shell frequency.</div>
 </section>
 
 <section class='slide'>
@@ -565,6 +724,37 @@ body {{ margin:0; font-family: 'Avenir Next', 'Helvetica Neue', Arial, sans-seri
         <li>Defensive Personnel: {vik_personnel}</li>
       </ul>
       <div class='sub' style='margin-top:10px;'>Goal: keep two-high on the field while attacking the intermediate honey-hole.</div>
+    </div>
+  </div>
+</section>
+
+<section class='slide'>
+  <div class='section-tag'>Part 3</div>
+  <div class='h1'>Game Plan Adjustments vs Two-High Heavy Defense</div>
+  <div class='row'>
+    <div class='col card'>
+      <div class='h2'>Play-Calling Shifts</div>
+      <ul class='bullet'>
+        <li>Increase intermediate concepts (15–22 yards) with vertical clearouts.</li>
+        <li>Mix pass/run to avoid predictability, but avoid heavy run tells.</li>
+        <li>Lean on route families that ranked high in EPA + success.</li>
+      </ul>
+    </div>
+    <div class='col card'>
+      <div class='h2'>Personnel & Alignment</div>
+      <ul class='bullet'>
+        <li>Emphasize 11 personnel and trips/slots to keep two-high on the field.</li>
+        <li>Use motion/spacing to create safety binds without telegraphing run.</li>
+        <li>Preserve formation variety to lower predictability score.</li>
+      </ul>
+    </div>
+    <div class='col card'>
+      <div class='h2'>Vs Low Two-High Teams</div>
+      <ul class='bullet'>
+        <li>More single-high beaters and downfield isolation routes.</li>
+        <li>Heavier personnel OK when defense is unlikely to stay two-high.</li>
+        <li>Different constraint set: prioritize explosive plays over disguise.</li>
+      </ul>
     </div>
   </div>
 </section>
