@@ -6,9 +6,4 @@ matplotlib
 seaborn
 scipy
 torch
-sklearn
-lightgbm
-pymc
-pymc-bart
-arviz
-openai
+scikit-learn
