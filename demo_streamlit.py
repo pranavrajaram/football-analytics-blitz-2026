@@ -60,7 +60,7 @@ def load_all_resources():
         st.error(f"Quantile Model Error: {e}")
 
     # B. Load Predictability Model (AI Scouting)
-    pred_path = 'predictability_lstm.pkl'
+    pred_path = 'predictability/predictability_lstm.pkl'
     if os.path.exists(pred_path):
         try:
             checkpoint = None
