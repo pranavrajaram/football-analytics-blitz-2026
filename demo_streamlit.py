@@ -45,22 +45,6 @@ class PredictabilityLSTM(nn.Module):
         return self.pass_head(x).squeeze(-1), self.formation_head(x)
 
 # --- 3. RESOURCE LOADING ---
-st.sidebar.markdown("### 🔍 Debugging Info")
-st.sidebar.write("Current Dir:", os.getcwd())
-try:
-    size_kb = os.path.getsize('predictability/predictability_lstm.pkl') / 1024
-    st.sidebar.write(f"File Size: {size_kb:.1f} KB")
-    if size_kb < 5:
-        st.sidebar.error("⚠️ File is too small! This is definitely a Git LFS pointer file.")
-except Exception as e:
-    st.sidebar.write("Size Check Error:", e)
-
-# Let's force the error to print directly in the sidebar so it doesn't get hidden
-try:
-    torch.load('predictability/predictability_lstm.pkl', map_location='cpu', weights_only=False)
-    st.sidebar.success("Torch Load Test: SUCCESS")
-except Exception as e:
-    st.sidebar.error(f"Torch Load Test FAILED: {type(e).__name__} - {e}")
 
 @st.cache_resource
 def load_all_resources():
