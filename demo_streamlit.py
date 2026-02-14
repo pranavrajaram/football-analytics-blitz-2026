@@ -45,6 +45,14 @@ class PredictabilityLSTM(nn.Module):
         return self.pass_head(x).squeeze(-1), self.formation_head(x)
 
 # --- 3. RESOURCE LOADING ---
+st.sidebar.markdown("### 🔍 Debugging Info")
+st.sidebar.write("Current Dir:", os.getcwd())
+st.sidebar.write("Predictability folder exists?", os.path.exists('predictability'))
+if os.path.exists('predictability'):
+    st.sidebar.write("Contents:", os.listdir('predictability'))
+else:
+    st.sidebar.write("Root contents:", os.listdir('.'))
+
 @st.cache_resource
 def load_all_resources():
     resources = {'quantiles': {}, 'predictability': None, 'meta': None}
