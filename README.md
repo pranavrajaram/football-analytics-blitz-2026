@@ -1,6 +1,8 @@
 # Football Analytics Blitz 2026
 
-Analytics and AI tools for attacking two-high coverage: web visualizations, interactive dashboards, and an LLM–critic feedback loop for play design.
+UC-San Diego's submission to the Syracuse Football Analytics Blitz Data Competition, sponsored by SIS. 
+
+Contributors: Jack Kalsched, Leo Malott, Diego Osborn, Pranav Rajaram, Adrian Rodriguez
 
 ---
 
